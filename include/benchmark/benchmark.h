@@ -436,6 +436,7 @@ struct Statistics {
 struct BenchmarkInstance;
 class ThreadTimer;
 class ThreadManager;
+class PerformanceCounter; // Added perf changes
 
 enum AggregationReportMode
 #if defined(BENCHMARK_HAS_CXX11)
