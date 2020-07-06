@@ -50,8 +50,10 @@ General Installation
 
 * Run a quick performance counter usage test
 ```bash
-$ cd performance_counter_test
+$ cd benchmark/performance_counter_test
+
 $ g++ test1.cc -lbenchmark -lpthread -lpapi -o test1
+
 $ ./test1 --benchmark_perf_events=<event1>, <event2>
    example ./test1 --benchmark_perf_events=tot_cyc
    Note: to check available perf events, see output of PAPI_AVAIL
