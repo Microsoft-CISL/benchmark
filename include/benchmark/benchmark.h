@@ -675,7 +675,8 @@ class State {
  private:
   State(IterationCount max_iters, const std::vector<int64_t>& ranges,
         int thread_i, int n_threads, internal::ThreadTimer* timer,
-        internal::ThreadManager* manager);
+        internal::PerformanceCounter* perf_counters, // Added perf changes
+        internal::ThreadManager* manager); 
 
   void StartKeepRunning();
   // Implementation of KeepRunning() and KeepRunningBatch().
@@ -683,6 +684,7 @@ class State {
   bool KeepRunningInternal(IterationCount n, bool is_batch);
   void FinishKeepRunning();
   internal::ThreadTimer* timer_;
+  internal::PerformanceCounter* perf_counters_; // Added perf changes
   internal::ThreadManager* manager_;
 
   friend struct internal::BenchmarkInstance;

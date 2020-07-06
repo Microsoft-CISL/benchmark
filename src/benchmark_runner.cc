@@ -16,6 +16,7 @@
 #include "benchmark/benchmark.h"
 #include "benchmark_api_internal.h"
 #include "internal_macros.h"
+#include "performance_counter_api.h"
 
 #ifndef BENCHMARK_OS_WINDOWS
 #ifndef BENCHMARK_OS_FUCHSIA
@@ -116,7 +117,10 @@ void RunInThread(const BenchmarkInstance* b, IterationCount iters,
       b->measure_process_cpu_time
           ? internal::ThreadTimer::CreateProcessCpuTime()
           : internal::ThreadTimer::Create());
-  State st = b->Run(iters, thread_id, &timer, manager);
+
+  internal::PerformanceCounter perf_counters(b->events); // Added perf changes
+
+  State st = b->Run(iters, thread_id, &timer, &perf_counters, manager); // Added perf changes
   CHECK(st.error_occurred() || st.iterations() >= st.max_iterations)
       << "Benchmark returned before State::KeepRunning() returned false!";
   {
@@ -128,6 +132,7 @@ void RunInThread(const BenchmarkInstance* b, IterationCount iters,
     results.manual_time_used += timer.manual_time_used();
     results.complexity_n += st.complexity_length_n();
     internal::Increment(&results.counters, st.counters);
+    perf_counters.IncrementCounters(results.counters); // Added perf changes
   }
   manager->NotifyThreadComplete();
 }

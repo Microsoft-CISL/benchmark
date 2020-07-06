@@ -84,7 +84,8 @@ class BenchmarkFamilies {
   // regular expression.
   bool FindBenchmarks(std::string re,
                       std::vector<BenchmarkInstance>* benchmarks,
-                      std::ostream* Err);
+                      std::ostream* Err,
+                      const std::string& event_list); // Added perf changes
 
  private:
   BenchmarkFamilies() {}
@@ -113,7 +114,8 @@ void BenchmarkFamilies::ClearBenchmarks() {
 
 bool BenchmarkFamilies::FindBenchmarks(
     std::string spec, std::vector<BenchmarkInstance>* benchmarks,
-    std::ostream* ErrStream) {
+    std::ostream* ErrStream,
+    const std::string& event_list) {  // Added perf changes
   CHECK(ErrStream);
   auto& Err = *ErrStream;
   // Make regular expression out of command-line flag
@@ -131,6 +133,9 @@ bool BenchmarkFamilies::FindBenchmarks(
 
   // Special list of thread counts to use when none are specified
   const std::vector<int> one_thread = {1};
+
+  // Reading user specified performance events to be recorded in benchmark
+  const auto& events = PerformanceCounter::ReadEvents(event_list, Err); // Added perf changes
 
   MutexLock l(mutex_);
   for (std::unique_ptr<Benchmark>& family : families_) {
@@ -174,6 +179,7 @@ bool BenchmarkFamilies::FindBenchmarks(
         instance.complexity_lambda = family->complexity_lambda_;
         instance.statistics = &family->statistics_;
         instance.threads = num_threads;
+        instance.events = events; // Added perf changes
 
         // Add arguments to instance name
         size_t arg_i = 0;
@@ -249,8 +255,9 @@ Benchmark* RegisterBenchmarkInternal(Benchmark* bench) {
 // `BenchmarkFamilies`
 bool FindBenchmarksInternal(const std::string& re,
                             std::vector<BenchmarkInstance>* benchmarks,
-                            std::ostream* Err) {
-  return BenchmarkFamilies::GetInstance()->FindBenchmarks(re, benchmarks, Err);
+                            std::ostream* Err,
+                            const std::string& event_list) { // Added perf changes
+  return BenchmarkFamilies::GetInstance()->FindBenchmarks(re, benchmarks, Err, event_list);
 }
 
 //=============================================================================//

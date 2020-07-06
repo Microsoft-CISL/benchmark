@@ -16,6 +16,7 @@
 #include "benchmark_api_internal.h"
 #include "benchmark_runner.h"
 #include "internal_macros.h"
+#include "performance_counter_api.h"
 
 #ifndef BENCHMARK_OS_WINDOWS
 #ifndef BENCHMARK_OS_FUCHSIA
@@ -106,6 +107,10 @@ DEFINE_bool(benchmark_counters_tabular, false);
 // The level of verbose logging to output
 DEFINE_int32(v, 0);
 
+// The list of performance events (comma separated) available through PAPI library, 
+// to check available events -> see output of "papi_avail"
+DEFINE_string(benchmark_perf_events, "");
+
 namespace benchmark {
 
 namespace internal {
@@ -117,7 +122,8 @@ void UseCharPointer(char const volatile*) {}
 
 State::State(IterationCount max_iters, const std::vector<int64_t>& ranges,
              int thread_i, int n_threads, internal::ThreadTimer* timer,
-             internal::ThreadManager* manager)
+             internal::PerformanceCounter* perf_counters, // Added perf changes
+             internal::ThreadManager* manager) 
     : total_iterations_(0),
       batch_leftover_(0),
       max_iterations(max_iters),
@@ -130,6 +136,7 @@ State::State(IterationCount max_iters, const std::vector<int64_t>& ranges,
       thread_index(thread_i),
       threads(n_threads),
       timer_(timer),
+      perf_counters_(perf_counters), // Added perf changes
       manager_(manager) {
   CHECK(max_iterations != 0) << "At least one iteration must be run";
   CHECK_LT(thread_index, threads) << "thread_index must be less than threads";
@@ -163,11 +170,13 @@ void State::PauseTiming() {
   // Add in time accumulated so far
   CHECK(started_ && !finished_ && !error_occurred_);
   timer_->StopTimer();
+  perf_counters_->Stop(); // Added perf changes
 }
 
 void State::ResumeTiming() {
   CHECK(started_ && !finished_ && !error_occurred_);
   timer_->StartTimer();
+  perf_counters_->Start(); // Added perf changes
 }
 
 void State::SkipWithError(const char* msg) {
@@ -390,7 +399,9 @@ size_t RunSpecifiedBenchmarks(BenchmarkReporter* display_reporter,
   }
 
   std::vector<internal::BenchmarkInstance> benchmarks;
-  if (!FindBenchmarksInternal(spec, &benchmarks, &Err)) return 0;
+  //Added perf changes
+  const auto event_list = FLAGS_benchmark_perf_events;
+  if (!FindBenchmarksInternal(spec, &benchmarks, &Err, event_list)) return 0;
 
   if (benchmarks.empty()) {
     Err << "Failed to match any benchmarks against regex: " << spec << "\n";
@@ -427,7 +438,9 @@ void PrintUsageAndExit() {
           "          [--benchmark_out_format=<json|console|csv>]\n"
           "          [--benchmark_color={auto|true|false}]\n"
           "          [--benchmark_counters_tabular={true|false}]\n"
-          "          [--v=<verbosity>]\n");
+          "          [--v=<verbosity>]\n"
+          "          [--benchmark_perf_events=<list>]\n"   //Added perf changes
+          );
   exit(0);
 }
 
@@ -457,6 +470,7 @@ void ParseCommandLineFlags(int* argc, char** argv) {
         ParseStringFlag(argv[i], "color_print", &FLAGS_benchmark_color) ||
         ParseBoolFlag(argv[i], "benchmark_counters_tabular",
                       &FLAGS_benchmark_counters_tabular) ||
+        ParseStringFlag(argv[i], "benchmark_perf_events", &FLAGS_benchmark_perf_events) || // Added perf changes
         ParseInt32Flag(argv[i], "v", &FLAGS_v)) {
       for (int j = i; j != *argc - 1; ++j) argv[j] = argv[j + 1];
 

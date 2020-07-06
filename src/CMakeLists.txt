@@ -28,6 +28,13 @@ target_include_directories(benchmark PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
     )
 
+if (PAPI_FOUND)
+  target_include_directories(benchmark PRIVATE
+	  ${PAPI_INCLUDE_DIRS}
+      )
+  target_link_libraries(benchmark ${PAPI_LIBRARIES})
+endif()
+
 # Link threads.
 target_link_libraries(benchmark  ${BENCHMARK_CXX_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 find_library(LIBRT rt)

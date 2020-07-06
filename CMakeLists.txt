@@ -262,6 +262,15 @@ cxx_feature_check(STEADY_CLOCK)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
+# Check if we have papi library installed
+find_package(PAPI)
+if (PAPI_FOUND)
+  add_definitions(-DBENCHMARK_HAS_PERFORMANCE_COUNTER)
+  message(STATUS "********** PAPI LIBRARY FOUND **********")
+else()
+	message(STATUS "********** PAPI LIBRARY NOT FOUND **********")
+endif()
+
 # Set up directories
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
