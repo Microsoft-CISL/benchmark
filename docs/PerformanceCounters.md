@@ -27,7 +27,7 @@ General Installation
 1.      % ./configure
         % make
 
-2.      Check for errors.
+2.      Check for errors. --> (OPTIONAL STEP)
 
         a) Run a simple test case: (This will run ctests/zero)
 
@@ -46,6 +46,7 @@ General Installation
 3.      Create a PAPI binary distribution or install PAPI directly.
 
         % make install
+```
 
 * Run a quick performance counter usage test
 ```bash
