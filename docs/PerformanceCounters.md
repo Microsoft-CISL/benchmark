@@ -20,6 +20,10 @@ $ make
 * Setup PAPI library
 ```bash
 
+# CLone PAPI library
+$ git clone https://bitbucket.org/icl/papi.git
+
+$ cd papi
 NOTE: the configure and make files are located in the papi/src directory.
 
 General Installation
