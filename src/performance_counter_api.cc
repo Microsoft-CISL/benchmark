@@ -151,7 +151,7 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   std::string::size_type start = 0;
   bool help = false;
   std::string eachEvent;
-  const auto name;
+  const auto name = 0;
 
   for (;;)
   {
