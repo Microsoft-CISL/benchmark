@@ -151,6 +151,7 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   std::string::size_type start = 0;
   bool help = false;
   std::string eachEvent;
+  const auto name;
 
   for (;;)
   {
@@ -159,12 +160,12 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
 
     if ( eachEvent.rfind("PAPI_", 0) == 0 )
     {
-      const auto name = eachEvent; 
+      name = eachEvent; 
 
     }
     else
     {
-      const auto name = "PAPI_" + eachEvent;
+      name = "PAPI_" + eachEvent;
     }
     
 
