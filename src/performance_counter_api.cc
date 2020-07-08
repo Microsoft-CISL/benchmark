@@ -142,32 +142,23 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
     return {};
   }
 
-  /*if  (input == 'default')
-  {
-    input = DEFAULT_EVENTS;
-  }*/
-
   PerformanceCounterEvents events;
   std::string::size_type start = 0;
   bool help = false;
   std::string eachEvent;
-  const auto name = 0;
 
   for (;;)
   {
     auto next = input.find(',', start);
     eachEvent = input.substr(start, next-start);
+    const auto name = eachEvent;
 
-    if ( eachEvent.rfind("PAPI_", 0) == 0 )
-    {
-      name = eachEvent; 
 
-    }
-    else
+    if ( eachEvent.rfind("PAPI_", 0) != 0 )
     {
       name = "PAPI_" + eachEvent;
     }
-    
+    std::cout << "name.data: " << name.data();
 
     int code = 0;
     if (PAPI_OK != PAPI_event_name_to_code(name.data(), &code))
