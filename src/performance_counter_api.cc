@@ -1,7 +1,7 @@
 //
 // PAPI api for google benchmark
 //
-
+#define DEFAULT_EVENTS "TOT,CYC,L1-DCM"
 #include <iostream>
 #include "performance_counter_api.h"
 using namespace std;
@@ -132,20 +132,42 @@ void PerformanceCounter::IncrementCounters(UserCounters& counters) const
 PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input, std::ostream& err_stream)
 {
   if (input.empty())
+  {
     return {};
+  }
+
   if (!Init())
   {
     err_stream << "***WARNING*** Performance Counter Library (PAPI) could not initialized.\n";
     return {};
   }
+
+  /*if  (input == 'default')
+  {
+    input = DEFAULT_EVENTS;
+  }*/
+
   PerformanceCounterEvents events;
   std::string::size_type start = 0;
   bool help = false;
+  std::string eachEvent;
 
   for (;;)
   {
     auto next = input.find(',', start);
-    const auto name = "PAPI_" + input.substr(start, next-start);
+    eachEvent = input.substr(start, next-start)
+
+    if ( eachEvent.rfind("PAPI_", 0) == 0 )
+    {
+      const auto name = eachEvent; 
+
+    }
+    else
+    {
+      const auto name = "PAPI_" + eachEvent;
+    }
+    
+
     int code = 0;
     if (PAPI_OK != PAPI_event_name_to_code(name.data(), &code))
     {
