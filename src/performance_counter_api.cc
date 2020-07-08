@@ -156,7 +156,7 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   for (;;)
   {
     auto next = input.find(',', start);
-    eachEvent = input.substr(start, next-start)
+    eachEvent = input.substr(start, next-start);
 
     if ( eachEvent.rfind("PAPI_", 0) == 0 )
     {
