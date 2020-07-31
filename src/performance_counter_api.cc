@@ -124,24 +124,8 @@ void PerformanceCounter::IncrementCounters(UserCounters& counters) const
   }
 }
 
-//--------------------------------------------------------------------------------------------
-// Name: PerformanceCounter::ReadEvents
-// PURPOSE:
-//   Reads the events in events set.
-//
-PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input, std::ostream& err_stream)
+void PerformanceCounter::CheckAvailCounters()
 {
-  if (input.empty())
-  {
-    return {};
-  }
-
-  if (!Init())
-  {
-    err_stream << "***WARNING*** Performance Counter Library (PAPI) could not initialized.\n";
-    return {};
-  }
-
   // check hw ctrs avaiable
   int Events[2] = { PAPI_TOT_CYC, PAPI_TOT_INS  };
   int num_hwcntrs = 0;
@@ -163,9 +147,28 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   {
     err_stream (handle_error(1));
   }
+}
 
+//--------------------------------------------------------------------------------------------
+// Name: PerformanceCounter::ReadEvents
+// PURPOSE:
+//   Reads the events in events set.
+//
+PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input, std::ostream& err_stream)
+{
+  if (input.empty())
+  {
+    return {};
+  }
 
-  // end checking
+  if (!Init())
+  {
+    err_stream << "***WARNING*** Performance Counter Library (PAPI) could not initialized.\n";
+    return {};
+  }
+
+  // Check avail counters in the current system
+  CheckAvailCounters()
 
   PerformanceCounterEvents events;
   std::string::size_type start = 0;

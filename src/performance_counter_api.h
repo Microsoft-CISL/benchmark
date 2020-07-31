@@ -27,6 +27,7 @@ class PerformanceCounter
   bool Stop();
 
   void IncrementCounters(UserCounters&) const;
+  void CheckAvailCounters();
 
   static PerformanceCounterEvents ReadEvents(const std::string& input, std::ostream& err_stream);
 
