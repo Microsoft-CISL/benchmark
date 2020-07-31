@@ -142,6 +142,31 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
     return {};
   }
 
+  // check hw ctrs avaiable
+  int Events[2] = { PAPI_TOT_CYC, PAPI_TOT_INS  };
+  int num_hwcntrs = 0;
+
+  if ((num_hwcntrs = PAPI_num_counters()) <= PAPI_OK)
+  {
+    err_stream (handle_error(1));
+  }
+
+  std::cout << "This system has " << num_hwcntrs << " available counters." << std::endl;
+
+  if (num_hwcntrs > 2)
+  {
+    num_hwcntrs = 2;
+  }
+
+  /* Start counting */
+  if (PAPI_start_counters(Events, numhwcntrs) != PAPI_OK)
+  {
+    err_stream (handle_error(1));
+  }
+
+
+  // end checking
+
   PerformanceCounterEvents events;
   std::string::size_type start = 0;
   bool help = false;
