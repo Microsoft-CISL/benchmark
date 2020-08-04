@@ -400,7 +400,7 @@ size_t RunSpecifiedBenchmarks(BenchmarkReporter* display_reporter,
 
   std::vector<internal::BenchmarkInstance> benchmarks;
   //Added perf changes
-  const auto event_list = FLAGS_benchmark_perf_events;
+  auto event_list = FLAGS_benchmark_perf_events;
   if (!FindBenchmarksInternal(spec, &benchmarks, &Err, event_list)) return 0;
 
   if (benchmarks.empty()) {
