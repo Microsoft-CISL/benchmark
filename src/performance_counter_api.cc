@@ -168,11 +168,11 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   }
 
   // Check avail counters in the current system
-  CheckAvailCounters()
+  //CheckAvailCounters();
 
   PerformanceCounterEvents events;
   std::string::size_type start = 0;
-  bool help = false;
+  bool help = false; 
   std::string eachEvent;
 
   for (;;)
@@ -180,15 +180,15 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
     auto next = input.find(',', start);
     eachEvent = input.substr(start, next-start);
 
-    const auto name = "PAPI_" + eachEvent;
-    //const auto name = eachEvent;
+    //const auto name = "PAPI_" + eachEvent;
+    const auto name = eachEvent;
 
-    /*if ( eachEvent.rfind("PAPI_", 0) != 0 )
+    if ( eachEvent.rfind("PAPI_", 0) != 0 )
     {
       name = "PAPI_" + eachEvent;
     }
     std::cout << "name.data: " << name.data();
-    */
+    
 
     int code = 0;
     if (PAPI_OK != PAPI_event_name_to_code(name.data(), &code))
@@ -206,7 +206,8 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   }
   if (help)
   {
-    err_stream << "***HELP*** To know available events in Performance Counter Library, check output of papi_avail\n\n";
+    err_stream << "***HELP*** To know available events in Performance Counter Library, 
+    check output of papi_avail\n\n";
   }
   return events;
 }
