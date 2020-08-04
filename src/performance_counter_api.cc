@@ -1,7 +1,7 @@
 //
 // PAPI api for google benchmark
 //
-#define DEFAULT_EVENTS "tot_cyc,tot_ins,br_ins,l1_dch,l1_dcm,l1_ich,l1_dcm"
+#define DEFAULT_EVENTS "tot_cyc,tot_ins,br_ins,l1_dch,l1_dcm,l1_ich,l1_icm"
 #include <iostream>
 #include "performance_counter_api.h"
 using namespace std;
