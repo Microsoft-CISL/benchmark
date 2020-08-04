@@ -178,6 +178,17 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   {
     auto next = input.find(',', start);
     eachEvent = input.substr(start, next-start);
+
+    if (input == "all")
+    {
+      std::cout << "All input" << std::endl;
+    }
+    else
+    {
+      std::cout << "not ALL " << std::endl;
+      std::cout << "The input is: " << eachEvent << std::endl;
+    }
+    
     std::transform(eachEvent.begin(), eachEvent.end(), eachEvent.begin(), ::toupper);
     
     auto name = eachEvent;
