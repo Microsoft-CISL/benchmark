@@ -174,12 +174,12 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   bool help = false; 
   std::string eachEvent;
   std::transform(eachEvent.begin(), eachEvent.end(), eachEvent.begin(), ::toupper);
-  std::cout << "eachEvent: " << eachEvent;
 
   for (;;)
   {
     auto next = input.find(',', start);
     eachEvent = input.substr(start, next-start);
+    std::cout << "eachEvent: " << eachEvent << std::endl;
     
     //const auto name = "PAPI_" + eachEvent;
     auto name = eachEvent;
