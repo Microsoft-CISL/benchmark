@@ -3,7 +3,6 @@
 //
 #define DEFAULT_EVENTS "TOT,CYC,L1-DCM"
 #include <iostream>
-#include <boost/algorithm/string.hpp>
 #include "performance_counter_api.h"
 using namespace std;
 
@@ -174,6 +173,7 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   std::string::size_type start = 0;
   bool help = false; 
   std::string eachEvent;
+  std::transform(eachEvent.begin(), eachEvent.end(), eachEvent.begin(), ::toupper);
 
   for (;;)
   {
@@ -181,7 +181,7 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
     eachEvent = input.substr(start, next-start);
     
     //const auto name = "PAPI_" + eachEvent;
-    auto name = boost::to_upper(eachEvent);
+    auto name = eachEvent;
 
     if ( eachEvent.rfind("PAPI_", 0) != 0)
     {
