@@ -174,6 +174,7 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   bool help = false; 
   std::string eachEvent;
   std::transform(eachEvent.begin(), eachEvent.end(), eachEvent.begin(), ::toupper);
+  std::cout << "eachEvent: " << eachEvent;
 
   for (;;)
   {
