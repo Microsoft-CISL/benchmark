@@ -124,7 +124,7 @@ void PerformanceCounter::IncrementCounters(UserCounters& counters) const
   }
 }
 
-void PerformanceCounter::CheckAvailCounters()
+/*void PerformanceCounter::CheckAvailCounters()
 {
   // check hw ctrs avaiable
   int Events[2] = { PAPI_TOT_CYC, PAPI_TOT_INS  };
@@ -142,12 +142,11 @@ void PerformanceCounter::CheckAvailCounters()
     num_hwcntrs = 2;
   }
 
-  /* Start counting */
   if (PAPI_start_counters(Events, numhwcntrs) != PAPI_OK)
   {
     err_stream (handle_error(1));
   }
-}
+}*/
 
 //--------------------------------------------------------------------------------------------
 // Name: PerformanceCounter::ReadEvents
@@ -204,10 +203,10 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
       break;
     start = next + 1;
   }
+
   if (help)
   {
-    err_stream << "***HELP*** To know available events in Performance Counter Library, 
-    check output of papi_avail\n\n";
+    err_stream << "***HELP*** To know available events in Performance Counter Library, check output of papi_avail\n\n";
   }
   return events;
 }
