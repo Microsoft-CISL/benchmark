@@ -44,7 +44,7 @@ struct BenchmarkInstance {
 bool FindBenchmarksInternal(const std::string& re,
                             std::vector<BenchmarkInstance>* benchmarks,
                             std::ostream* Err,
-                            const std::string& event_list); // Added perf changes
+                            std::string& event_list); // Added perf changes
 
 bool IsZero(double n);
 
