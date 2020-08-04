@@ -179,18 +179,14 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
     auto next = input.find(',', start);
     eachEvent = input.substr(start, next-start);
     std::transform(eachEvent.begin(), eachEvent.end(), eachEvent.begin(), ::toupper);
-    std::cout << "eachEvent: " << eachEvent << std::endl;
     
-    //const auto name = "PAPI_" + eachEvent;
     auto name = eachEvent;
 
     if ( eachEvent.rfind("PAPI_", 0) != 0)
     {
       name = "PAPI_" + eachEvent;
     }
-    std::cout << "name.data: " << name.data();
     
-
     int code = 0;
     if (PAPI_OK != PAPI_event_name_to_code(name.data(), &code))
     {
