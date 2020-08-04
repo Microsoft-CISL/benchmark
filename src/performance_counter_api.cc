@@ -1,7 +1,7 @@
 //
 // PAPI api for google benchmark
 //
-#define DEFAULT_EVENTS "TOT,CYC,L1-DCM"
+#define DEFAULT_EVENTS "tot_cyc,tot_ins,br_ins,l1_dch,l1_dcm,l1_ich,l1_dcm"
 #include <iostream>
 #include "performance_counter_api.h"
 using namespace std;
@@ -172,7 +172,8 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(std::string& input, std:
   if (input == "default")
   {
     std::cout << "default input" << std::endl;  
-    input = "tot_ins,l1_dcm";
+    //input = "tot_cyc,tot_ins,br_ins,l1_dch,l1_dcm,l1_ich,l1_dcm";
+    input = DEFAULT_EVENTS;
   }
 
   PerformanceCounterEvents events;
