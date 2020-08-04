@@ -169,6 +169,12 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   // Check avail counters in the current system
   //CheckAvailCounters();
 
+  if (input == "default")
+  {
+    std::cout << "default input" << std::endl;  
+    input = "tot_ins,l1_dcm"
+  }
+
   PerformanceCounterEvents events;
   std::string::size_type start = 0;
   bool help = false; 
@@ -178,17 +184,6 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   {
     auto next = input.find(',', start);
     eachEvent = input.substr(start, next-start);
-
-    if (input == "all")
-    {
-      std::cout << "All input" << std::endl;
-    }
-    else
-    {
-      std::cout << "not ALL " << std::endl;
-      std::cout << "The input is: " << eachEvent << std::endl;
-    }
-    
     std::transform(eachEvent.begin(), eachEvent.end(), eachEvent.begin(), ::toupper);
     
     auto name = eachEvent;
