@@ -115,7 +115,7 @@ void BenchmarkFamilies::ClearBenchmarks() {
 bool BenchmarkFamilies::FindBenchmarks(
     std::string spec, std::vector<BenchmarkInstance>* benchmarks,
     std::ostream* ErrStream,
-    const std::string& event_list) {  // Added perf changes
+    std::string& event_list) {  // Added perf changes
   CHECK(ErrStream);
   auto& Err = *ErrStream;
   // Make regular expression out of command-line flag

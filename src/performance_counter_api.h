@@ -29,7 +29,7 @@ class PerformanceCounter
   void IncrementCounters(UserCounters&) const;
   void CheckAvailCounters();
 
-  static PerformanceCounterEvents ReadEvents(const std::string& input, std::ostream& err_stream);
+  static PerformanceCounterEvents ReadEvents(std::string& input, std::ostream& err_stream);
 
 private:
 #ifdef BENCHMARK_HAS_PERFORMANCE_COUNTER

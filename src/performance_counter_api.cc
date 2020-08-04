@@ -153,7 +153,7 @@ void PerformanceCounter::IncrementCounters(UserCounters& counters) const
 // PURPOSE:
 //   Reads the events in events set.
 //
-PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input, std::ostream& err_stream)
+PerformanceCounterEvents PerformanceCounter::ReadEvents(std::string& input, std::ostream& err_stream)
 {
   if (input.empty())
   {
@@ -172,7 +172,7 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(const std::string& input
   if (input == "default")
   {
     std::cout << "default input" << std::endl;  
-    input = "tot_ins,l1_dcm";
+    input = 'tot_ins,l1_dcm';
   }
 
   PerformanceCounterEvents events;
