@@ -85,7 +85,7 @@ class BenchmarkFamilies {
   bool FindBenchmarks(std::string re,
                       std::vector<BenchmarkInstance>* benchmarks,
                       std::ostream* Err,
-                      const std::string& event_list); // Added perf changes
+                      std::string& event_list); // Added perf changes
 
  private:
   BenchmarkFamilies() {}
@@ -256,7 +256,7 @@ Benchmark* RegisterBenchmarkInternal(Benchmark* bench) {
 bool FindBenchmarksInternal(const std::string& re,
                             std::vector<BenchmarkInstance>* benchmarks,
                             std::ostream* Err,
-                            const std::string& event_list) { // Added perf changes
+                            std::string& event_list) { // Added perf changes
   return BenchmarkFamilies::GetInstance()->FindBenchmarks(re, benchmarks, Err, event_list);
 }
 
