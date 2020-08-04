@@ -172,7 +172,7 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(std::string& input, std:
   if (input == "default")
   {
     std::cout << "default input" << std::endl;  
-    input = 'tot_ins,l1_dcm';
+    input = "tot_ins,l1_dcm";
   }
 
   PerformanceCounterEvents events;
