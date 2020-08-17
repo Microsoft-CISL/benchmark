@@ -1,13 +1,19 @@
 ## Performance Counter Collection
 ```bash
-In MLOS, collection of performance counters from underlying hardware or software at various testing levels of an application can be extremely useful to give the context to the tunables choice. For example, developers can collect various performance metrics in (micro)benchmarks and use them to explore a parameter space for a tunable in a particular component of entire application. These perforamce metrics can be of these 3 types:
+In MLOS, collection of performance counters from underlying hardware or software at various testing
+levels of an application can be extremely useful to give the context to the tunables choice. 
+For example, developers can collect various performance metrics in (micro)benchmarks and use them
+to explore a parameter space for a tunable in a particular component of entire application. 
+These perforamce metrics can be of these 3 types:
 1. Hardware counters. For example, CPU cycles
 2. Software counter. For example, context-switches
 3. Application specific counters. For example, collision-counts in hashmap application
 
-This is an effort to extend existing [GoogleBenchmark library](https://github.com/google/benchmark), to collect hardware and software counters while writing (micro)benchmarks.
+This is an effort to extend existing [GoogleBenchmark library](https://github.com/google/benchmark)
+, to collect hardware and software counters while writing (micro)benchmarks.
 
-In order to add performace counter collection in GBenchmark library, we integrated it with [PAPI](https://icl.utk.edu/papi/) (performance api). 
+In order to add performace counter collection in GBenchmark library, we integrated it with [PAPI]
+(https://icl.utk.edu/papi/) (performance api). 
 
 To use this extension follow below to setup and see usage with some examples.
 ```
@@ -68,7 +74,7 @@ General Installation
 
 ## Usage
 
-# How to write simple microbencmark using this extension
+### How to write simple microbencmark using this extension
 ```bash
 $ Write a simple benchmark as below, for reference [GoogleBenchmark usage](https://github.com/google/benchmark#usage). Lets save it as test.cc
 'static void BM_StringCreation(benchmark::State& state) {
@@ -99,7 +105,7 @@ $ Now run it with a parameter that will allow to pass the hardware and software 
 
 ```
 
-# Complete microbenchmark test in application like SQLITE
+### Complete microbenchmark test in application like SQLITE
 ```bash
 
 ```
