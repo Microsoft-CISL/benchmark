@@ -4,8 +4,8 @@
 //#define DEFAULT_EVENTS "tot_cyc,tot_ins,br_ins,l1_dch,l1_dcm,l1_ich,l1_icm"
 #define ALL_SW_EVENTS "perf_count_sw_context_switches,\
 perf_count_sw_page_faults,\
-perf_count_sw_minor_faults,\
-perf_count_sw_major_faults,\
+minor_faults,\
+major_faults,\
 perf_count_sw_cpu_migrations"
 
 #include <iostream>
