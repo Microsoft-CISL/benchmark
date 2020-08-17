@@ -76,7 +76,9 @@ General Installation
 
 ### How to write simple microbencmark using this extension
 ```bash
-$ Write a simple benchmark as below, for reference [GoogleBenchmark usage](https://github.com/google/benchmark#usage). Lets save it as test.cc
+$ Write a simple benchmark as below, for reference [GoogleBenchmark usage](https://github.com/google/benchmark#usage). 
+Lets save it as test.cc
+
 'static void BM_StringCreation(benchmark::State& state) {
   for (auto _ : state)
     std::string empty_string;
