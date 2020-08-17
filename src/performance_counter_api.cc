@@ -169,11 +169,13 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(std::string& input, std:
 
   // Check avail counters in the current system
   //CheckAvailCounters();
-
+  
+  bool sw_event_flag = false;
   // Take all software events as default events that are available on VM,
   // because hardware events are not available on VMs
   if (input == "default")
   {
+    sw_event_flag = true;
     std::cout << "default input" << std::endl;  
     input = ALL_SW_EVENTS;
   }
@@ -191,10 +193,10 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(std::string& input, std:
     
     auto name = eachEvent;
 
-    if ( eachEvent.rfind("PAPI_", 0) != 0)
+    /*if ((eachEvent.rfind("PAPI_", 0) != 0) && (!sw_event_flag))
     {
       name = "PAPI_" + eachEvent;
-    }
+    }*/
     
     int code = 0;
     if (PAPI_OK != PAPI_event_name_to_code(name.data(), &code))
