@@ -186,8 +186,8 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(std::string& input, std:
 
   if (help)
   {
-    err_stream << "***HELP*** To know available hardware events in Performance Counter Library,\
-     check output of papi_avail\n\n";
+    err_stream << "***HELP*** To know available hardware events in Performance Counter Library,\n\
+     check output of "'"papi_avail"'"\n\n";
   }
   return events;
 }
