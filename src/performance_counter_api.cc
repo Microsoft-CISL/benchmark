@@ -130,30 +130,6 @@ void PerformanceCounter::IncrementCounters(UserCounters& counters) const
   }
 }
 
-/*void PerformanceCounter::CheckAvailCounters()
-{
-  // check hw ctrs avaiable
-  int Events[2] = { PAPI_TOT_CYC, PAPI_TOT_INS  };
-  int num_hwcntrs = 0;
-
-  if ((num_hwcntrs = PAPI_num_counters()) <= PAPI_OK)
-  {
-    err_stream (handle_error(1));
-  }
-
-  std::cout << "This system has " << num_hwcntrs << " available counters." << std::endl;
-
-  if (num_hwcntrs > 2)
-  {
-    num_hwcntrs = 2;
-  }
-
-  if (PAPI_start_counters(Events, numhwcntrs) != PAPI_OK)
-  {
-    err_stream (handle_error(1));
-  }
-}*/
-
 //--------------------------------------------------------------------------------------------
 // Name: PerformanceCounter::ReadEvents
 // PURPOSE:
@@ -172,16 +148,11 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(std::string& input, std:
     return {};
   }
 
-  // Check avail counters in the current system
-  //CheckAvailCounters();
-  
-  bool sw_event_flag = false;
   // Take all software events as default events that are available on VM,
   // because hardware events are not available on VMs
   if (input == "default")
   {
-    sw_event_flag = true;
-    std::cout << "default input" << std::endl;  
+    // std::cout << "default input" << std::endl;  
     input = ALL_SW_EVENTS;
   }
 
@@ -198,11 +169,6 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(std::string& input, std:
     
     auto name = eachEvent;
 
-    /*if ((eachEvent.rfind("PAPI_", 0) != 0) && (!sw_event_flag))
-    {
-      name = "PAPI_" + eachEvent;
-    }*/
-    
     int code = 0;
     if (PAPI_OK != PAPI_event_name_to_code(name.data(), &code))
     {
