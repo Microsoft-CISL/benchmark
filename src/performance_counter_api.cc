@@ -1,7 +1,8 @@
 //
 // PAPI api for google benchmark
 //
-#define DEFAULT_EVENTS "tot_cyc,tot_ins,br_ins,l1_dch,l1_dcm,l1_ich,l1_icm"
+//#define DEFAULT_EVENTS "tot_cyc,tot_ins,br_ins,l1_dch,l1_dcm,l1_ich,l1_icm"
+#define ALL_SW_EVENTS "context-switches,page-faults,minor-fauts,major-faults,cpu-migrations"
 #include <iostream>
 #include "performance_counter_api.h"
 using namespace std;
@@ -169,11 +170,12 @@ PerformanceCounterEvents PerformanceCounter::ReadEvents(std::string& input, std:
   // Check avail counters in the current system
   //CheckAvailCounters();
 
+  // Take all software events as default events that are available on VM,
+  // because hardware events are not available on VMs
   if (input == "default")
   {
     std::cout << "default input" << std::endl;  
-    //input = "tot_cyc,tot_ins,br_ins,l1_dch,l1_dcm,l1_ich,l1_dcm";
-    input = DEFAULT_EVENTS;
+    input = ALL_SW_EVENTS;
   }
 
   PerformanceCounterEvents events;
