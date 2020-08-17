@@ -15,7 +15,7 @@ This is an effort to extend existing [GoogleBenchmark library](https://github.co
 In order to add performace counter collection in GBenchmark library, we integrated it with [PAPI]
 (https://icl.utk.edu/papi/) (performance api). 
 
-To use this extension follow below to setup and see usage with some examples.
+To use this extension, follow below steps to setup and see usage with some examples.
 ```
 
 ## Setup 
