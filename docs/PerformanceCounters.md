@@ -1,9 +1,23 @@
-# How to setup 
+## Performance Counter Collection
+```bash
+In MLOS, collection of performance counters from underlying hardware or software at various testing levels of an application can be extremely useful to give the context to the tunables choice. For example, developers can collect various performance metrics in (micro)benchmarks and use them to explore a parameter space for a tunable in a particular component of entire application. These perforamce metrics can be of these 3 types:
+1. Hardware counters. For example, CPU cycles
+2. Software counter. For example, context-switches
+3. Application specific counters. For example, collision-counts in hashmap application
+
+This is an effort to extend existing [GoogleBenchmark library](https://github.com/google/benchmark), to collect hardware and software counters while writing (micro)benchmarks.
+
+In order to add performace counter collection in GBenchmark library, we integrated it with [PAPI](https://icl.utk.edu/papi/) (performance api). 
+
+To use this extension follow below to setup and see usage with some examples.
+```
+
+## Setup 
 
 * Setup GoogleBenchmark with Performance Counter changes
 ```bash
 # Check out the library.
-$ git clone --branch benchmark-papi-integration https://github.com/google/nhprog/benchmark.git
+$ git clone --branch benchmark-with-performance-collection https://github.com/google/nhprog/benchmark.git
 # Benchmark requires Google Test as a dependency. Add the source tree as a subdirectory.
 $ git clone https://github.com/google/googletest.git benchmark/googletest
 # Go to the library root directory
@@ -19,7 +33,6 @@ $ make
 ```
 * Setup PAPI library
 ```bash
-
 # CLone PAPI library
 $ git clone https://bitbucket.org/icl/papi.git
 
@@ -52,14 +65,41 @@ General Installation
         % make install
 ```
 
-* Run a quick performance counter usage test
+
+## Usage
+
+# How to write simple microbencmark using this extension
 ```bash
-$ cd benchmark/performance_counter_test
+$ Write a simple benchmark as below, for reference [GoogleBenchmark usage](https://github.com/google/benchmark#usage). Lets save it as test.cc
+'static void BM_StringCreation(benchmark::State& state) {
+  for (auto _ : state)
+    std::string empty_string;
+}
+// Register the function as a benchmark
+BENCHMARK(BM_StringCreation);'
 
-$ g++ test1.cc -lbenchmark -lpthread -lpapi -o test1
+~Note: There is no change in the way benchmark is defined
 
-$ ./test1 --benchmark_perf_events=<event1>, <event2>
+$ Compile the change:
+ 'g++ test.cc -lbenchmark -lpthread -lpapi -o test'
 
-   For example: ./test1 --benchmark_perf_events=tot_cyc
+$ Now run it with a parameter that will allow to pass the hardware and software events:
+ './test1 --benchmark_perf_events=<event1>,<event2>'
+
+   For example: ./test1 --benchmark_perf_events=papi_tot_cyc
    Note: to check available perf events, see output of PAPI_AVAIL
+
+   Output:
+
+   '-------------------------------------------------------------------------------------------
+   Benchmark                                 Time             CPU   Iterations UserCounters..
+   -------------------------------------------------------------------------------------------
+   BM_StringCreation/min_time:0.500       12.8 ns         12.8 ns     46994730 TOT_CYC=23.0023
+   '
+
+```
+
+# Complete microbenchmark test in application like SQLITE
+```bash
+
 ```
