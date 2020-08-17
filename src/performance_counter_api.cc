@@ -5,7 +5,7 @@
 #define ALL_SW_EVENTS "perf_count_sw_context_switches,\
 perf_count_sw_page_faults,\
 perf_count_sw_page_faults_min,\
-perf_count_sw_page_faults_max,\
+perf_count_sw_page_faults_maj,\
 perf_count_sw_cpu_migrations"
 
 #include <iostream>
