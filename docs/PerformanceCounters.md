@@ -23,7 +23,7 @@ To use this extension, follow below steps to setup and see usage with some examp
 * Setup GoogleBenchmark with Performance Counter changes
 ```bash
 # Check out the library.
-$ git clone --branch benchmark-with-performance-collection https://github.com/Microsoft-CISL/benchmark/tree/performance-counter-extension
+$ git clone --branch performance-counter-extension https://github.com/Microsoft-CISL/benchmark
 # Benchmark requires Google Test as a dependency. Add the source tree as a subdirectory.
 $ git clone https://github.com/google/googletest.git benchmark/googletest
 # Go to the library root directory
