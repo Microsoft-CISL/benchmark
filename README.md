@@ -1,5 +1,6 @@
 # Benchmark
 ### Note: This is a forked GoogleBenchmark repo that contains additional feature to capture hardware counters using PAPI(Performance API) library.
+To see specific example on how to make use, see [Recording Hardware Counters](#recording-hw-counters)
 
 [![Build Status](https://travis-ci.org/google/benchmark.svg?branch=master)](https://travis-ci.org/google/benchmark)
 [![Build status](https://ci.appveyor.com/api/projects/status/u0qsyp7t1tk7cpxs/branch/master?svg=true)](https://ci.appveyor.com/project/google/benchmark/branch/master)
@@ -308,6 +309,8 @@ too (`-lkstat`).
 [A Faster KeepRunning Loop](#a-faster-keep-running-loop)
 
 [Disabling CPU Frequency Scaling](#disabling-cpu-frequency-scaling)
+
+[Recording Hardware Counters](#recording-hw-counters)
 
 
 <a name="output-formats" />
@@ -1299,3 +1302,7 @@ sudo cpupower frequency-set --governor performance
 ./mybench
 sudo cpupower frequency-set --governor powersave
 ```
+
+<a name="recording-hw-counters" />
+
+### Recording Hardware Counters
