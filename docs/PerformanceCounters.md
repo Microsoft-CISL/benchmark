@@ -71,6 +71,17 @@ General Installation
         % make install
 ```
 
+## PAPI Utility Commands
+```bash
+papi_avail - provides availability and detail information for PAPI preset events
+papi_clockres - provides availability and detail information for PAPI preset events
+papi_cost - provides availability and detail information for PAPI preset events
+papi_command_line - executes PAPI preset or native events from the command line
+papi_decode - decodes PAPI preset events into a csv format suitable for PAPI_encode_events
+papi_event_chooser - given a list of named events, lists other events that can be counted with them
+papi_mem_info - provides information on the memory architecture of the current processor
+papi_native_avail - provides detailed information for PAPI native events
+```
 
 ## Usage
 
