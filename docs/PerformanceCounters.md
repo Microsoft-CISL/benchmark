@@ -106,8 +106,3 @@ $ Now run it with a parameter that will allow to pass the hardware and software 
    '
 
 ```
-
-### Complete microbenchmark test in application like SQLITE
-```bash
-
-```
