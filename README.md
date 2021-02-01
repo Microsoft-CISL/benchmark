@@ -1,5 +1,5 @@
 # Benchmark
-### Note: This is a forked GoogleBenchmark repo that contains additional feature to capture hardware counters using PAPI(Performance API) library.
+### Note: This is a forked GoogleBenchmark repo that contains additional feature to capture hardware counters using [PAPI](http://icl.cs.utk.edu/papi/docs/)(Performance API) library.
 To see specific example on how to make use, see [Recording Hardware Counters](#recording-hw-counters)
 
 [![Build Status](https://travis-ci.org/google/benchmark.svg?branch=master)](https://travis-ci.org/google/benchmark)
@@ -1306,3 +1306,4 @@ sudo cpupower frequency-set --governor powersave
 <a name="recording-hw-counters" />
 
 ### Recording Hardware Counters
+Please look at the reference [doc](https://github.com/Microsoft-CISL/benchmark/blob/performance-counter-extension/docs/PerformanceCounters.md) for installing PAPI library, it's utility commands and usage with GoogleBenchmark. 
